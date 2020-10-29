@@ -22,7 +22,7 @@ BS._Find_next(x) //Return first set bit after xth bit, x on failure
 /// Only for non-negative integers
 /// Returns the immediate next number with same count of one bits, -1 on failure
 long long hakmemItem175(long long n){
-  if (n == 0) return -1;
+  if(!n) return -1;
   long long x = (n & -n);
   long long left = (x + n);
   long long right = ((n ^ left) / x) >> 2;
@@ -32,24 +32,19 @@ long long hakmemItem175(long long n){
 
 /// Returns the immediate previous number with same count of one bits, -1 on failure
 long long lol(long long n){
-  if (n == 0 || n == 1) return -1;
+  if(n < 2) return -1;
   long long res = ~hakmemItem175(~n);
-  return (res == 0) ? -1 : res;
+  return (!res) ? -1 : res;
 }
 
-
 //Gilbert Ordering for Mo's Algorithm
-
 inline int64_t gilbertOrder(int x, int y, int pow, int rotate) {
   if (pow == 0) {
     return 0;
   }
   int hpow = 1 << (pow-1);
-  int seg = (x < hpow) ? (
-    (y < hpow) ? 0 : 3
-  ) : (
-    (y < hpow) ? 1 : 2
-  );
+  int seg = (x < hpow) ? ((y < hpow) ? 0 : 3) : 
+            ((y < hpow) ? 1 : 2);
   seg = (seg + rotate) & 3;
   const int rotateDelta[4] = {3, 0, 0, 1};
   int nx = x & (x ^ hpow), ny = y & (y ^ hpow);
