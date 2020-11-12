@@ -19,6 +19,16 @@ gp_hash_table<key, int, chash> table;
 BS._Find_first()
 BS._Find_next(x) //Return first set bit after xth bit, x on failure
 
+//Gray Code, G(0) = 000, G(1) = 001, G(2) = 011, G(3) = 010
+inline int g(int n){ return n ^ (n >> 1); }
+
+//Inverse Gray Code
+int rev_g(int g) {
+  int n = 0;
+  for (; g; g >>= 1) n ^= g;
+  return n;
+}
+
 /// Only for non-negative integers
 /// Returns the immediate next number with same count of one bits, -1 on failure
 long long hakmemItem175(long long n){
